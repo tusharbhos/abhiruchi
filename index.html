@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Get Everything You Want</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* ---------- LEFT SIDE ---------- */
+        .left-side {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px;
+            color: white;
+            transition: transform 0.8s ease, filter 0.8s ease;
+        }
+
+        .wise-quote {
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .left-content h1 {
+            font-size: 72px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .left-content p {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        /* Animated waves */
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.1) 0%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    transparent 100%);
+            transform: skewY(-5deg);
+            animation: waveMove 8s ease-in-out infinite;
+        }
+
+        .wave:nth-child(2) {
+            animation-delay: -2s;
+            opacity: 0.5;
+        }
+
+        .wave:nth-child(3) {
+            animation-delay: -4s;
+            opacity: 0.3;
+        }
+
+        @keyframes waveMove {
+
+            0%,
+            100% {
+                transform: translateX(-50%) skewY(-5deg);
+            }
+
+            50% {
+                transform: translateX(-25%) skewY(-3deg);
+            }
+        }
+
+        /* ---------- RIGHT SIDE ---------- */
+        .right-side {
+            flex: 1;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 60px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .logo::before {
+            content: "≡";
+            font-size: 20px;
+        }
+
+        .welcome-text {
+            margin-bottom: 40px;
+        }
+
+        .welcome-text h2 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+            font-weight: 400;
+        }
+
+        .welcome-text p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #999;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .remember-forgot a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        /* ---------- SIGN IN BUTTON WITH GRADIENT HOVER ---------- */
+        .sign-in-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(90deg, #1a1a1a, #1a1a1a);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .sign-in-btn:hover {
+            background: linear-gradient(90deg, #667eea, #764ba2, #4facfe, #00f2fe);
+            background-size: 300% 300%;
+            animation: gradientMove 2s ease infinite;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 14px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .google-btn:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ---------- CUSTOM CURSOR ---------- */
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Bubble trail */
+        .bubble {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9997;
+            animation: bubbleFloat 1.5s ease-out forwards;
+        }
+
+        .bubble::before {
+            content: '★';
+            font-size: 20px;
+            color: #667eea;
+            opacity: 0.8;
+        }
+
+        @keyframes bubbleFloat {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-side {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            .custom-cursor,
+            .cursor-ring {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="custom-cursor"></div>
+    <div class="cursor-ring"></div>
+
+    <div class="container">
+        <!-- LEFT SIDE -->
+        <div class="left-side" id="left-panel">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+
+            <div class="wise-quote">A WISE QUOTE</div>
+
+            <div class="left-content">
+                <h1>Get<br>Everything<br>You Want</h1>
+                <p>You can get everything you want if you work hard, trust the process, and stick to the plan.</p>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="right-side">
+            <div class="login-container">
+                <div class="logo">Cogie</div>
+
+                <div class="welcome-text">
+                    <h2>Welcome Back</h2>
+                    <p>Enter your email and password to access your account</p>
+                </div>
+
+                <form>
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                            <span class="password-toggle" onclick="togglePassword()">👁</span>
+                        </div>
+                    </div>
+
+                    <div class="remember-forgot">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="checkbox" id="remember">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="sign-in-btn" id="signInBtn">Sign In</button>
+
+                    <button type="button" class="google-btn">
+                        <svg width="18" height="18" viewBox="0 0 18 18">
+                            <path fill="#4285F4"
+                                d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z" />
+                            <path fill="#34A853"
+                                d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z" />
+                            <path fill="#FBBC05"
+                                d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z" />
+                            <path fill="#EA4335"
+                                d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3z" />
+                        </svg>
+                        Sign in with Google
+                    </button>
+                </form>
+
+                <div class="signup-link">
+                    Don't have an account? <a href="#">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorRing = document.querySelector('.cursor-ring');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0, ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animate() {
+            cursorX += (mouseX - cursorX) * 0.3;
+            cursorY += (mouseY - cursorY) * 0.3;
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Bubble trail
+        let lastBubbleTime = 0;
+        document.addEventListener('mousemove', e => {
+            const now = Date.now();
+            if (now - lastBubbleTime > 100) {
+                createBubble(e.clientX, e.clientY);
+                lastBubbleTime = now;
+            }
+        });
+
+        function createBubble(x, y) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.style.left = x + 'px';
+            bubble.style.top = y + 'px';
+            document.body.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 1500);
+        }
+
+        // Password toggle
+        function togglePassword() {
+            const pass = document.getElementById('password');
+            pass.type = pass.type === 'password' ? 'text' : 'password';
+        }
+
+        // Hover interaction between button & left panel
+        const signInBtn = document.getElementById('signInBtn');
+        const leftPanel = document.getElementById('left-panel');
+
+        signInBtn.addEventListener('mouseenter', () => {
+            leftPanel.style.transform = 'translateX(-20px)';
+            leftPanel.style.filter = 'brightness(1.2)';
+        });
+
+        signInBtn.addEventListener('mouseleave', () => {
+            leftPanel.style.transform = 'translateX(0)';
+            leftPanel.style.filter = 'brightness(1)';
+        });
+
+        // Cursor hover grow effect
+        const interactives = document.querySelectorAll('button, a, input, label');
+        interactives.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '40px';
+                cursor.style.height = '40px';
+                cursor.style.background = 'rgba(102, 126, 234, 0.2)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+                cursor.style.background = 'transparent';
+            });
+        });
+    </script>
+</body>
+
+</html>
